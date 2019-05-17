@@ -16,6 +16,7 @@ import {
   //     west: {lat: -33.872957, lon: 151.206960},
   //     south: {lat: -33.872968, lon: 151.207037}
   //   };
+
    const myGeo = {
       location: {lat: -33.880967, lon: 151.219605},
       doc1: {lat: -33.880162, lon: 151.221173, serviceName: "Dr Jessica Green"},
@@ -48,18 +49,6 @@ export default class HelloWorldSceneAR extends Component {
     super();
 
     // Set initial state here
-    // this.state = {
-    //   text : "C Initializing AR...",
-    //   northPointX: 0,
-    //   northPointZ: 0,
-    //   southPointX: 0,
-    //   southPointZ: 0,
-    //   eastPointX: 0,
-    //   eastPointZ: 0,
-    //   westPointX: 0,
-    //   westPointZ: 0,
-    // };
-
     this.state = {
       text : "Initializing AR...",
       doc1X: 0,
@@ -133,48 +122,6 @@ export default class HelloWorldSceneAR extends Component {
       </ViroARScene>
     );
   }
-
-  // <ViroText text="North Text" scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.northPointX, 0, this.state.northPointZ]} style={styles.helloWorldTextStyle} />
-  //       <ViroText text="South Text" scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.southPointX, 0, this.state.southPointZ]} style={styles.helloWorldTextStyle} />
-  //       <ViroText text="West Text" scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.westPointX, 0, this.state.westPointZ]} style={styles.helloWorldTextStyle} />
-  //       <ViroText text="East Text" scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.eastPointX, 0, this.state.eastPointZ]} style={styles.helloWorldTextStyle} />
-
-
-  
-
-  // _onInitialized() {
-  //   // geolocation.getCurrentPosition((val) => {
-  //   //   this.setState({
-  //   //     text : "GEO SUCCESS"
-  //   //   });
-  //   // }, (err) => {
-  //   //   this.setState({
-  //   //     text : "GEO ERROR"
-  //   //   });
-  //   // });
-
-  //   var northPoint = this._transformPointToAR(egGeo.north.lat, egGeo.north.lon);
-  //   var eastPoint = this._transformPointToAR(egGeo.east.lat, egGeo.east.lon);
-  //   var westPoint = this._transformPointToAR(egGeo.west.lat, egGeo.west.lon);
-  //   var southPoint = this._transformPointToAR(egGeo.south.lat, egGeo.south.lon);
-
-  //   console.log("obj north final x:" + northPoint.x + "final z:" + northPoint.z);
-  //   console.log("obj south final x:" + southPoint.x + "final z:" + southPoint.z);
-  //   console.log("obj east point x" + eastPoint.x + "final z" + eastPoint.z);
-  //   console.log("obj west point x" + westPoint.x + "final z" + westPoint.z);
-
-  //   this.setState({
-  //     northPointX: northPoint.x,
-  //     northPointZ: northPoint.z,
-  //     southPointX: southPoint.x,
-  //     southPointZ: southPoint.z,
-  //     eastPointX: eastPoint.x,
-  //     eastPointZ: eastPoint.z,
-  //     westPointX: westPoint.x,
-  //     westPointZ: westPoint.z,
-  //     text : "AR Init called."
-  //   });
-  // }
 
   _onInitialized() {
     var doc1Point = this._transformPointToAR(myGeo.doc1.lat, myGeo.doc1.lon);
@@ -278,7 +225,7 @@ var styles = StyleSheet.create({
 module.exports = HelloWorldSceneAR;
 
 /*
-Product Shocase Tile design
+Product Showcase Tile design
 https://github.com/viromedia/viro
 https://github.com/viromedia/viro/blob/master/js/ProductShowcase/ProductShowcase.js
 
