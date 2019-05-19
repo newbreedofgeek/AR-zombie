@@ -1,47 +1,41 @@
 'use strict';
 
 import React, { Component } from 'react';
-
 import {StyleSheet} from 'react-native';
 
 import {
   ViroARScene,
   ViroText,
+  ViroFlexView
 } from 'react-viro';
 
-  //  const myGeo = {
-  //     location: {lat: -33.872968, lon: 151.207037},
-  //     north: {lat: -33.872925, lon: 151.207065},
-  //     east: {lat: -33.872994, lon: 151.207151},
-  //     west: {lat: -33.872957, lon: 151.206960},
-  //     south: {lat: -33.872968, lon: 151.207037}
-  //   };
+  // mock search data 
+  const myGeo = {
+    location: {lat: -33.880967, lon: 151.219605},
+    doc1: {lat: -33.880162, lon: 151.221173, serviceName: "Dr Jessica Green"},
+    doc2: {lat: -33.880382, lon: 151.219219, serviceName: "Dr Philip Change"},
+    doc3: {lat: -33.880615, lon: 151.220034, serviceName: "Dr Craig Waller"},
+    doc4: {lat: -33.880911, lon: 151.219187, serviceName: "Dr Rohan Gett"},
+    doc5: {lat: -33.880826, lon: 151.219470, serviceName: "Dr Richard Parkinson"},
+    doc6: {lat: -33.880908, lon: 151.219642, serviceName: "Diagnostic Endoscopy centre"},
+    doc7: {lat: -33.880745, lon: 151.219958, serviceName: "Dr David H Bryant"},
+    doc8: {lat: -33.881047, lon: 151.219707, serviceName: "Dr James Yu, Pain Specialist"},
+    doc9: {lat: -33.881059, lon: 151.219460, serviceName: "Dr Paul Janz"},
+    doc10: {lat: -33.881165, lon: 151.219642, serviceName: "St Vincent Medical Centre"},
+    doc11: {lat: -33.881545, lon: 151.219561, serviceName: "NSW Cardiology"},
+    doc12: {lat: -33.881320, lon: 151.220160, serviceName: "Boundary Medical Centre"},
+    doc13: {lat: -33.881861, lon: 151.219109, serviceName: "Oxford Medical"},
+    doc14: {lat: -33.881944, lon: 151.220565, serviceName: "West Street Clinic"}
+  };
 
-   const myGeo = {
-      location: {lat: -33.880967, lon: 151.219605},
-      doc1: {lat: -33.880162, lon: 151.221173, serviceName: "Dr Jessica Green"},
-      doc2: {lat: -33.880382, lon: 151.219219, serviceName: "Dr Philip Change"},
-      doc3: {lat: -33.880615, lon: 151.220034, serviceName: "Dr Craig Waller"},
-      doc4: {lat: -33.880911, lon: 151.219187, serviceName: "Dr Rohan Gett"},
-      doc5: {lat: -33.880826, lon: 151.219470, serviceName: "Dr Richard Parkinson"},
-      doc6: {lat: -33.880908, lon: 151.219642, serviceName: "Diagnostic Endoscopy centre"},
-      doc7: {lat: -33.880745, lon: 151.219958, serviceName: "Dr David H Bryant"},
-      doc8: {lat: -33.881047, lon: 151.219707, serviceName: "Dr James Yu, Pain Specialist"},
-      doc9: {lat: -33.881059, lon: 151.219460, serviceName: "Dr Paul Janz"},
-      doc10: {lat: -33.881165, lon: 151.219642, serviceName: "St Vincent Medical Centre"},
-      doc11: {lat: -33.881545, lon: 151.219561, serviceName: "NSW Cardiology"},
-      doc12: {lat: -33.881320, lon: 151.220160, serviceName: "Boundary Medical Centre"},
-      doc13: {lat: -33.881861, lon: 151.219109, serviceName: "Oxford Medical"},
-      doc14: {lat: -33.881944, lon: 151.220565, serviceName: "West Street Clinic"}
-    };
-
-   const egGeo = {
-      location: {lat: 47.618534, lon: -122.338478},
-      north: {lat: 47.618574, lon: -122.338475},
-      east: {lat: 47.618534, lon: -122.338061},
-      west: {lat: 47.618539, lon: -122.338644},
-      south: {lat: 47.618210, lon: -122.338455}
-    };
+  // mock my coordinates
+  const egGeo = {
+    location: {lat: 47.618534, lon: -122.338478},
+    north: {lat: 47.618574, lon: -122.338475},
+    east: {lat: 47.618534, lon: -122.338061},
+    west: {lat: 47.618539, lon: -122.338644},
+    south: {lat: 47.618210, lon: -122.338455}
+  };
 
 export default class HelloWorldSceneAR extends Component {
 
@@ -53,45 +47,35 @@ export default class HelloWorldSceneAR extends Component {
       text : "Initializing AR...",
       doc1X: 0,
       doc1Z: 0,
-
       doc2X: 0,
       doc2Z: 0,
-      
       doc3X: 0,
       doc3Z: 0,
-      
       doc4X: 0,
       doc4Z: 0,
-
       doc5X: 0,
       doc5Z: 0,
-
       doc6X: 0,
       doc6Z: 0,
-
       doc7X: 0,
       doc7Z: 0,
-
       doc8X: 0,
       doc8Z: 0,
-
       doc9X: 0,
       doc9Z: 0,
-
       doc10X: 0,
       doc10Z: 0,
-
       doc11X: 0,
       doc11Z: 0,
-
       doc12X: 0,
       doc12Z: 0,
-
       doc13X: 0,
       doc13Z: 0,
-
       doc14X: 0,
-      doc14Z: 0
+      doc14Z: 0,
+
+      mainAnimation: "fadeOut",
+      runAnimation: false,
     };
 
     // bind 'this' to functions
@@ -119,6 +103,12 @@ export default class HelloWorldSceneAR extends Component {
         <ViroText text={myGeo.doc12.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc12X, 0, this.state.doc12Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc13.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc13X, 0, this.state.doc13Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc14.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc14X, 0, this.state.doc14Z]} style={styles.helloWorldTextStyle} />
+      
+        <ViroFlexView style={styles.titleContainer} position={[-3.8, 1, -7]} rotation={[0, 40, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text="product.productTitleText" width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text="product.productDescriptionText" />
+        </ViroFlexView>
       </ViroARScene>
     );
   }
@@ -185,16 +175,16 @@ export default class HelloWorldSceneAR extends Component {
     });
   }
 
- _latLongToMerc(lat_deg, lon_deg) {
+  _latLongToMerc(lat_deg, lon_deg) {
    var lon_rad = (lon_deg / 180.0 * Math.PI)
    var lat_rad = (lat_deg / 180.0 * Math.PI)
    var sm_a = 6378137.0
    var xmeters  = sm_a * lon_rad
    var ymeters = sm_a * Math.log((Math.sin(lat_rad) + 1) / Math.cos(lat_rad))
    return ({x:xmeters, y:ymeters});
-}
+  }
 
-_transformPointToAR(lat, long) {
+  _transformPointToAR(lat, long) {
   var objPoint = this._latLongToMerc(lat, long);
   var devicePoint = this._latLongToMerc(myGeo.location.lat, myGeo.location.lon);
   console.log("objPointZ: " + objPoint.y + ", objPointX: " + objPoint.x)
@@ -204,10 +194,7 @@ _transformPointToAR(lat, long) {
   var objFinalPosX = objPoint.x - devicePoint.x;
   //flip the z, as negative z(is in front of us which is noπrth, pos z is behind(south).
   return ({x:objFinalPosX, z:-objFinalPosZ});
-}
-
-// Latitude: -33.868819699999996
-// Longitude: 151.2092955
+  }
 
 }
 
@@ -220,12 +207,32 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     width: 500
   },
+  titleContainer: {
+    flexDirection: 'column',
+    backgroundColor: "#ffffffdd",
+    padding: .2,
+  },
+  prodTitleText: {
+    fontFamily: 'sans-serif-light',
+    fontSize: 30,
+    color: '#222222',
+    textAlignVertical: 'center',
+    textAlign: 'left',
+  },
+  prodDescriptionText: {
+    fontFamily: 'sans-serif-light',
+    fontSize: 20,
+    color: '#222222',
+    textAlignVertical: 'center',
+    textAlign: 'left',
+    flex: 1,
+  }
 });
 
 module.exports = HelloWorldSceneAR;
 
 /*
-Product Showcase Tile design
+Product Shocase Tile design
 https://github.com/viromedia/viro
 https://github.com/viromedia/viro/blob/master/js/ProductShowcase/ProductShowcase.js
 

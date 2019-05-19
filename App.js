@@ -19,7 +19,7 @@ import {
 
 import {
   ViroVRSceneNavigator,
-  ViroARSceneNavigator
+  ViroARSceneNavigator,
 } from 'react-viro';
 
 /*
@@ -47,8 +47,9 @@ export default class ViroSample extends Component {
 
     this.state = {
       navigatorType : defaultNavigatorType,
-      sharedProps : sharedProps
+      sharedProps : sharedProps,
     }
+
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
@@ -84,7 +85,7 @@ export default class ViroSample extends Component {
 
             <Text style={localStyles.buttonText}>Start Game</Text>
           </TouchableHighlight>
-          
+
         </View>
       </View>
     );
@@ -180,11 +181,4 @@ var localStyles = StyleSheet.create({
   }
 });
 
-module.exports = ViroSample
-
-// <TouchableHighlight style={localStyles.buttons}
-//           onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-//           underlayColor={'#68a0ff'} >
-
-//           <Text style={localStyles.buttonText}>VR</Text>
-//         </TouchableHighlight>
+module.exports = ViroSample;
