@@ -5,7 +5,16 @@ import {StyleSheet} from 'react-native';
 
 import {
   ViroARScene,
+  ViroBox,
+  ViroARPlaneSelector,
+  ViroARPlane,
+  ViroNode,
+  ViroAmbientLight,
+  ViroSpotLight,
+  ViroMaterials,
+  Viro3DObject,
   ViroText,
+  ViroAnimations,
   ViroFlexView
 } from 'react-viro';
 
@@ -87,6 +96,31 @@ export default class HelloWorldSceneAR extends Component {
   render() {
     return (
       <ViroARScene onTrackingInitialized={this._onInitialized} >
+        <ViroAmbientLight color={"#ffffff"} />
+        <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0,-1,-.2]}
+          position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
+        
+          <ViroNode position={[0,-1,0]} dragType="FixedToWorld" onDrag={()=>{}} >
+            <Viro3DObject
+              source={require('./res/zombie/zombieattack.vrx')}
+              resources={[require('./res/zombie/zombie_diffuse.png'),
+                require('./res/zombie/zombie_normal.png'),
+                require('./res/zombie/zombie_specular.png')]}
+              animation={
+                {
+                  name: "animateZombie",
+                  run: true,
+                  loop:true
+                }
+              } 
+              position={[-.5, 0, -10]}
+              rotation={[0, 0, 0]}
+              scale={[.01, .01, .01]}
+              type="VRX" />
+          </ViroNode>
+
+        
+
         <ViroText text={this.state.text} scale={[2, 2, 2]} position={[0, -2, -5]} style={styles.helloWorldTextStyle} />
         
         <ViroText text={myGeo.doc1.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc1X, 0, this.state.doc1Z]} style={styles.helloWorldTextStyle} />
@@ -109,6 +143,7 @@ export default class HelloWorldSceneAR extends Component {
           <ViroText style={styles.prodTitleText} text="product.productTitleText" width={4} height={.5} />
           <ViroText style={styles.prodDescriptionText} text="product.productDescriptionText" />
         </ViroFlexView>
+
       </ViroARScene>
     );
   }
@@ -197,6 +232,24 @@ export default class HelloWorldSceneAR extends Component {
   }
 
 }
+
+// ViroMaterials.createMaterials({
+//   zombie: {
+//     diffuseTexture: require('./res/zombie/Zombie.png'),
+//     normalTexture: require('./res/zombie/Zombie_nm.png'),
+//     specularTexture: require('./res/zombie/Zombie_specular.png'),
+//     lightingModel: "Phong"
+//   },
+// });
+
+ViroAnimations.registerAnimations({
+  animateZombie:{
+    properties: {
+      positionZ:"+=1"
+    }, 
+    easing: "Linear",
+    duration:1000}
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
