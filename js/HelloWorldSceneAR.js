@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Alert} from 'react-native';
 
 import {
   ViroARScene,
@@ -15,7 +15,9 @@ import {
   Viro3DObject,
   ViroText,
   ViroAnimations,
-  ViroFlexView
+  ViroFlexView,
+  ViroSound,
+  ViroCamera
 } from 'react-viro';
 
   // mock search data 
@@ -84,7 +86,9 @@ export default class HelloWorldSceneAR extends Component {
       doc14Z: 0,
 
       mainAnimation: "fadeOut",
-      runAnimation: false,
+      zombieVrx: require('./res/zombie/zombiewalk.vrx'),
+      zombieSound: false
+      
     };
 
     // bind 'this' to functions
@@ -92,62 +96,63 @@ export default class HelloWorldSceneAR extends Component {
     this._latLongToMerc = this._latLongToMerc.bind(this);
     this._transformPointToAR = this._transformPointToAR.bind(this);
   }
+  
 
   startAnim() {
+    console.log("XXXX hello")
+    this.setState({
+      zombieVrx: require('./res/zombie/zombiewalk.vrx'),
+      zombieSound: true
+    })
+  }
 
+  zombieSwiped(position, source) {
+    Alert.alert(`We just Clicked the image! position=${position}, source=${source}, node=${Object.keys(node)}`);
+    this.setState({
+      zombieVrx: require('./res/zombie/zombie.vrx'),
+      zombieSound: false
+
+    })
   }
 
   render() {
     return (
-      <ViroARScene onTrackingInitialized={this._onInitialized} >
-        <ViroAmbientLight color={"#ffffff"} />
+      <ViroARScene onTrackingUpdated={this._onInitialized}>
+        <ViroAmbientLight color={"#aaaaaa"} intensity={3000} />
         <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0,-1,-.2]}
           position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
         
-          <ViroNode position={[0,-1,0]} dragType="FixedToWorld" onDrag={()=>{}} >
+          <ViroNode position={[-18, -18, -36]} dragType="FixedToWorld" onDrag={()=>{}}
+              onClick={(position, source) => this.zombieSwiped(position, source)}>
             <Viro3DObject
-              source={require('./res/zombie/zombieidle.vrx')}
+              source={this.state.zombieVrx}
               resources={[require('./res/zombie/zombie_diffuse.png'),
                 require('./res/zombie/zombie_normal.png'),
                 require('./res/zombie/zombie_specular.png')]}
+              position={[0, 0, 0]}
+              rotation={[0, 0, 0]}
               animation={
                 {
-                  name: "animateZombie",
+                  name: "animateZombie1",
                   run: true,
                   loop:true,
                   onStart: () => this.startAnim()
                 }
-              } 
-              position={[-.5, 0, -10]}
-              rotation={[0, 0, 0]}
-              scale={[.01, .01, .01]}
-              type="VRX" />
+              }              
+              scale={[.1, .1, .1]}
+              type="VRX" 
+              transformBehaviors={["billboardY"]}
+              />         
           </ViroNode>
 
-        
+        <ViroSound paused={!this.state.zombieSound}
+           muted={this.state.zombieSound}
+           source={require('./res/zombie/Zombie-sound.mp3')}
+           loop={true}
+           volume={1.0}
+           onFinish={this.onFinishSound}
+           onError={this.onErrorSound} />        
 
-        <ViroText text={this.state.text} scale={[2, 2, 2]} position={[0, -2, -5]} style={styles.helloWorldTextStyle} />
-        
-        <ViroText text={myGeo.doc1.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc1X, 0, this.state.doc1Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc2.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc2X, 0, this.state.doc2Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc3.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc3X, 0, this.state.doc3Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc4.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc4X, 0, this.state.doc4Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc5.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc5X, 0, this.state.doc5Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc6.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc6X, 0, this.state.doc6Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc7.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc7X, 0, this.state.doc7Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc8.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc8X, 0, this.state.doc8Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc9.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc9X, 0, this.state.doc9Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc10.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc10X, 0, this.state.doc10Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc11.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc11X, 0, this.state.doc11Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc12.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc12X, 0, this.state.doc12Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc13.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc13X, 0, this.state.doc13Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc14.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc14X, 0, this.state.doc14Z]} style={styles.helloWorldTextStyle} />
-      
-        <ViroFlexView style={styles.titleContainer} position={[-3.8, 1, -7]} rotation={[0, 40, 0]} height={2} width={4}
-          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
-          <ViroText style={styles.prodTitleText} text="product.productTitleText" width={4} height={.5} />
-          <ViroText style={styles.prodDescriptionText} text="product.productDescriptionText" />
-        </ViroFlexView>
 
       </ViroARScene>
     );
@@ -211,8 +216,11 @@ export default class HelloWorldSceneAR extends Component {
       doc13Z: doc13Point.z,
 
       doc14X: doc14Point.x,
-      doc14Z: doc14Point.z
+      doc14Z: doc14Point.z,
+
+      zombieSound: true
     });
+    
   }
 
   _latLongToMerc(lat_deg, lon_deg) {
@@ -248,12 +256,26 @@ export default class HelloWorldSceneAR extends Component {
 // });
 
 ViroAnimations.registerAnimations({
-  animateZombie:{
+  animateZombie1: {
     properties: {
-      positionZ:"+=1"
+      positionX:"+=1",
+      positionY:"+=0",
+      positionZ:"+=2"
+    
     }, 
     easing: "Linear",
-    duration:1000}
+    duration: 1500
+  },
+  animateZombie2: {
+    properties: {
+      positionX:"-=2",
+      positionY:"+=0",
+      positionZ:"+=2"
+    
+    }, 
+    easing: "Linear",
+    duration: 1000
+  }
 });
 
 var styles = StyleSheet.create({
