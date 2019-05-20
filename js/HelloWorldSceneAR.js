@@ -13,16 +13,16 @@ import {
   const myGeo = {
     location: {lat: -33.880967, lon: 151.219605},
     doc1: {lat: -33.880162, lon: 151.221173, serviceName: "Dr Jessica Green"},
-    doc2: {lat: -33.880382, lon: 151.219219, serviceName: "Dr Philip Change"},
+    doc2: {lat: -33.880382, lon: 151.219219, serviceName: "Dr Philip Change", serviceDesc:"Gynaeocologist", distance: "450m away"},
     doc3: {lat: -33.880615, lon: 151.220034, serviceName: "Dr Craig Waller"},
-    doc4: {lat: -33.880911, lon: 151.219187, serviceName: "Dr Rohan Gett"},
-    doc5: {lat: -33.880826, lon: 151.219470, serviceName: "Dr Richard Parkinson"},
-    doc6: {lat: -33.880908, lon: 151.219642, serviceName: "Diagnostic Endoscopy centre"},
+    doc4: {lat: -33.880911, lon: 151.219187, serviceName: "Dr Rohan Gett", serviceDesc:"General Practitioner", distance: "350m away"},
+    doc5: {lat: -33.880826, lon: 151.219470, serviceName: "Dr Richard Parkinson", serviceDesc:"Physiotherapist",distance: "200m away"},
+    doc6: {lat: -33.880908, lon: 151.219642, serviceName: "Diagnostic Endoscopy Centre", serviceDesc:"Endoscopy",distance: "50m away"},
     doc7: {lat: -33.880745, lon: 151.219958, serviceName: "Dr David H Bryant"},
-    doc8: {lat: -33.881047, lon: 151.219707, serviceName: "Dr James Yu, Pain Specialist"},
-    doc9: {lat: -33.881059, lon: 151.219460, serviceName: "Dr Paul Janz"},
-    doc10: {lat: -33.881165, lon: 151.219642, serviceName: "St Vincent Medical Centre"},
-    doc11: {lat: -33.881545, lon: 151.219561, serviceName: "NSW Cardiology"},
+    doc8: {lat: -33.881047, lon: 151.219707, serviceName: "Dr James Yu", serviceDesc:"Pain Specialist", distance: "100m away"},
+    doc9: {lat: -33.881059, lon: 151.219460, serviceName: "Dr Paul Janz", serviceDesc: "General Practise", distance: "150m away"},
+    doc10: {lat: -33.881165, lon: 151.219642, serviceName: "St Vincent Medical Centre", serviceDesc: "Emergency Services",distance: "250m away"},
+    doc11: {lat: -33.881545, lon: 151.219561, serviceName: "NSW Cardiology", serviceDesc: "Heart Specialists", distance: "550m away"},
     doc12: {lat: -33.881320, lon: 151.220160, serviceName: "Boundary Medical Centre"},
     doc13: {lat: -33.881861, lon: 151.219109, serviceName: "Oxford Medical"},
     doc14: {lat: -33.881944, lon: 151.220565, serviceName: "West Street Clinic"}
@@ -90,28 +90,81 @@ export default class HelloWorldSceneAR extends Component {
         <ViroText text={this.state.text} scale={[2, 2, 2]} position={[0, -2, -5]} style={styles.helloWorldTextStyle} />
         
         <ViroText text={myGeo.doc1.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc1X, 0, this.state.doc1Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc2.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc2X, 0, this.state.doc2Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc3.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc3X, 0, this.state.doc3Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc4.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc4X, 0, this.state.doc4Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc5.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc5X, 0, this.state.doc5Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc6.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc6X, 0, this.state.doc6Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc7.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc7X, 0, this.state.doc7Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc8.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc8X, 0, this.state.doc8Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc9.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc9X, 0, this.state.doc9Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc10.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc10X, 0, this.state.doc10Z]} style={styles.helloWorldTextStyle} />
-        <ViroText text={myGeo.doc11.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc11X, 0, this.state.doc11Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc12.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc12X, 0, this.state.doc12Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc13.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc13X, 0, this.state.doc13Z]} style={styles.helloWorldTextStyle} />
         <ViroText text={myGeo.doc14.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc14X, 0, this.state.doc14Z]} style={styles.helloWorldTextStyle} />
-      
-        <ViroFlexView style={styles.titleContainer} position={[-3.8, 1, -7]} rotation={[0, 40, 0]} height={2} width={4}
+
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc2X, 15, this.state.doc2Z]} rotation={[0, 0, 0]} height={2} width={4}
           animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
-          <ViroText style={styles.prodTitleText} text="product.productTitleText" width={4} height={.5} />
-          <ViroText style={styles.prodDescriptionText} text="product.productDescriptionText" />
+          <ViroText style={styles.prodTitleText} text={myGeo.doc2.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc2.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc2.distance} />
+        </ViroFlexView>
+
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc4X, 0, this.state.doc4Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc4.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc4.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc4.distance} />
+        </ViroFlexView>
+
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc5X, 0, this.state.doc5Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc5.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc5.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc5.distance} />
+        </ViroFlexView>
+
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[1.5, 1.5, 1.5]} position={[this.state.doc6X, 0, this.state.doc6Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc6.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc6.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc6.distance} />
+        </ViroFlexView>
+      
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc8X, 0, this.state.doc8Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc8.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc8.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc8.distance} />
+        </ViroFlexView>
+
+        <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc9X, 8, this.state.doc9Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc9.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc9.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc9.distance} />
+        </ViroFlexView>
+
+         <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc10X, 0, this.state.doc10Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc10.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc10.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc10.distance} />
+        </ViroFlexView>
+
+         <ViroFlexView transformBehaviors={["billboard"]} style={styles.titleContainer} scale={[3, 3, 3]} position={[this.state.doc11X, 15, this.state.doc11Z]} rotation={[0, 0, 0]} height={2} width={4}
+          animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+          <ViroText style={styles.prodTitleText} text={myGeo.doc11.serviceName} width={4} height={.5} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc11.serviceDesc} />
+          <ViroText style={styles.prodDescriptionText} text={myGeo.doc11.distance} />
         </ViroFlexView>
       </ViroARScene>
     );
   }
+
+  
+  //<ViroText text={myGeo.doc2.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc2X, 0, this.state.doc2Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc4.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc4X, 0, this.state.doc4Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc5.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc5X, 0, this.state.doc5Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc6.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc6X, 0, this.state.doc6Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc8.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc8X, 0, this.state.doc8Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc9.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc9X, 0, this.state.doc9Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc10.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc10X, 0, this.state.doc10Z]} style={styles.helloWorldTextStyle} />
+  //<ViroText text={myGeo.doc11.serviceName} scale={[3, 3, 3]} transformBehaviors={["billboard"]} position={[this.state.doc11X, 0, this.state.doc11Z]} style={styles.helloWorldTextStyle} />
+        
 
   _onInitialized() {
     var doc1Point = this._transformPointToAR(myGeo.doc1.lat, myGeo.doc1.lon);
@@ -130,7 +183,7 @@ export default class HelloWorldSceneAR extends Component {
     var doc14Point = this._transformPointToAR(myGeo.doc14.lat, myGeo.doc14.lon);
 
     this.setState({
-      text : "--- Menu ---",
+      text : "--- Menu --- ",
       doc1X: doc1Point.x,
       doc1Z: doc1Point.z,
 
@@ -202,6 +255,7 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Arial',
     fontSize: 22,
+    lineHeight: 5,
     color: '#ffffff',
     textAlignVertical: 'center',
     textAlign: 'center',
@@ -211,21 +265,30 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: "#ffffffdd",
     padding: .2,
+    borderRadius: 50,
+    lineHeight: 1,
+    paddingRight: 0,
+    borderColor: '#FF0000',
+    borderStyle: 'solid',
   },
   prodTitleText: {
     fontFamily: 'sans-serif-light',
     fontSize: 30,
-    color: '#222222',
+    lineHeight: 1,
+    color: '#FF0000',
     textAlignVertical: 'center',
     textAlign: 'left',
+    paddingRight: 0,
   },
   prodDescriptionText: {
     fontFamily: 'sans-serif-light',
     fontSize: 20,
-    color: '#222222',
+    lineHeight: 5,
+    color: '#FF0000',
     textAlignVertical: 'center',
     textAlign: 'left',
     flex: 1,
+    paddingRight: 0,
   }
 });
 
