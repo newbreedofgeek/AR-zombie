@@ -93,6 +93,10 @@ export default class HelloWorldSceneAR extends Component {
     this._transformPointToAR = this._transformPointToAR.bind(this);
   }
 
+  startAnim() {
+
+  }
+
   render() {
     return (
       <ViroARScene onTrackingInitialized={this._onInitialized} >
@@ -102,7 +106,7 @@ export default class HelloWorldSceneAR extends Component {
         
           <ViroNode position={[0,-1,0]} dragType="FixedToWorld" onDrag={()=>{}} >
             <Viro3DObject
-              source={require('./res/zombie/zombieattack.vrx')}
+              source={require('./res/zombie/zombieidle.vrx')}
               resources={[require('./res/zombie/zombie_diffuse.png'),
                 require('./res/zombie/zombie_normal.png'),
                 require('./res/zombie/zombie_specular.png')]}
@@ -110,7 +114,8 @@ export default class HelloWorldSceneAR extends Component {
                 {
                   name: "animateZombie",
                   run: true,
-                  loop:true
+                  loop:true,
+                  onStart: () => this.startAnim()
                 }
               } 
               position={[-.5, 0, -10]}
