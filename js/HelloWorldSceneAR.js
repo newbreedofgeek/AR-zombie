@@ -107,7 +107,7 @@ export default class HelloWorldSceneAR extends Component {
         showZombie: true,
         zombieSound: true
       })
-    }, 5000
+    }, 10000
     )
   }
 
@@ -425,7 +425,7 @@ var styles = StyleSheet.create({
     padding: .2,
     borderRadius: 50,
     paddingRight: 0,
-    opacity: .8
+    opacity: .9
   },
   titleContainerBad: {
     flexDirection: 'column',
@@ -433,7 +433,7 @@ var styles = StyleSheet.create({
     padding: .2,
     borderRadius: 50,
     paddingRight: 0,
-    opacity: .8
+    opacity: .9
   },
   prodTitleText: {
     fontFamily: 'sans-serif-light',
