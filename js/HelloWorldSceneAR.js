@@ -88,7 +88,8 @@ export default class HelloWorldSceneAR extends Component {
       mainAnimation: "fadeOut",
       zombieSound: false,
       showZombie: false,
-      zombieAnimation: ""
+      zombieAnimation: "moveForward",
+      currentRotate: "-=20"
       
     };
 
@@ -96,6 +97,8 @@ export default class HelloWorldSceneAR extends Component {
     this._onInitialized = this._onInitialized.bind(this);
     this._latLongToMerc = this._latLongToMerc.bind(this);
     this._transformPointToAR = this._transformPointToAR.bind(this);
+    this.registerAnimations = this.registerAnimations.bind(this);
+    this.registerAnimations()
   }
 
   componentDidMount() {
@@ -104,7 +107,7 @@ export default class HelloWorldSceneAR extends Component {
         showZombie: true,
         zombieSound: true
       })
-    }, 10000
+    }, 5000
     )
   }
 
@@ -115,10 +118,43 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   zombieClicked(position, source) {
-    Alert.alert(`We just Clicked the image! position=${position}, source=${source}`);
     this.setState({
-      zombieSound: false
+      zombieSound: false,
+      zombieAnimation: "rotate"
     })
+  }
+
+  registerAnimations() {
+    ViroAnimations.registerAnimations({
+      animateZombie1: {
+        properties: {
+          positionX:"+=1",
+          positionY:"+=0",
+          positionZ:"+=2"
+        
+        }, 
+        easing: "Linear",
+        duration: 1500,
+        delay: 3000
+      },
+      moveForward: {
+        properties: {
+          positionX:"+=0",
+          positionY:"+=0",
+          positionZ:"+=2"
+        }, 
+        easing: "Linear",
+        duration: 1000 
+      },
+      rotate: {
+        properties: {
+          rotateX: "90"
+        }, 
+        easing: "Linear",
+        duration: 1000    
+      }  
+    });
+    
   }
 
   render() {
@@ -139,14 +175,14 @@ export default class HelloWorldSceneAR extends Component {
               rotation={[0, 0, 0]}
               animation={
                 {
-                  name: "moveForward",
+                  name: this.state.zombieAnimation,
                   run: true,
-                  loop:true,
-                  onStart: () => this.startAnim()
-                  
+                  loop: true,
+                  onStart: () => this.startAnim(),
+                  interruptable: true
                 }
               }              
-              scale={[.11, .11, .11]}
+              scale={[.12, .12, .12]}
               type="VRX" 
               />             
           </ViroNode>
@@ -335,38 +371,36 @@ export default class HelloWorldSceneAR extends Component {
 //   },
 // });
 
-ViroAnimations.registerAnimations({
-  animateZombie1: {
-    properties: {
-      positionX:"+=1",
-      positionY:"+=0",
-      positionZ:"+=2"
+// ViroAnimations.registerAnimations({
+//   animateZombie1: {
+//     properties: {
+//       positionX:"+=1",
+//       positionY:"+=0",
+//       positionZ:"+=2"
     
-    }, 
-    easing: "Linear",
-    duration: 1500,
-    delay: 3000
-  },
-  moveForward: {
-    properties: {
-      positionX:"+=0",
-      positionY:"+=0",
-      positionZ:"+=2"
-    }, 
-    easing: "Linear",
-    duration: 1000 
-  },
-  moveLeft: {
-    properties: {
-      positionX:"+=1",
-      positionY:"+=0",
-      positionZ:"+=0"
-    
-    }, 
-    easing: "Linear",
-    duration: 1000    
-  }  
-});
+//     }, 
+//     easing: "Linear",
+//     duration: 1500,
+//     delay: 3000
+//   },
+//   moveForward: {
+//     properties: {
+//       positionX:"+=0",
+//       positionY:"+=0",
+//       positionZ:"+=2"
+//     }, 
+//     easing: "Linear",
+//     duration: 1000 
+//   },
+//   rotate: {
+//     properties: {
+//       rotateX: this.state.currentRotate
+//     }, 
+//     easing: "Linear",
+//     duration: 500    
+//   }  
+// });
+
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
