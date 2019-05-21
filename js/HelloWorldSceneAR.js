@@ -86,7 +86,6 @@ export default class HelloWorldSceneAR extends Component {
       doc14Z: 0,
 
       mainAnimation: "fadeOut",
-      zombieVrx: require('./res/zombie/zombiewalk.vrx'),
       zombieSound: false
       
     };
@@ -99,52 +98,46 @@ export default class HelloWorldSceneAR extends Component {
   
 
   startAnim() {
-    console.log("XXXX hello")
     this.setState({
-      zombieVrx: require('./res/zombie/zombiewalk.vrx'),
       zombieSound: true
     })
   }
 
-  zombieSwiped(position, source) {
-    Alert.alert(`We just Clicked the image! position=${position}, source=${source}, node=${Object.keys(node)}`);
+  zombieClicked(position, source) {
+    Alert.alert(`We just Clicked the image! position=${position}, source=${source}`);
     this.setState({
-      zombieVrx: require('./res/zombie/zombie.vrx'),
       zombieSound: false
-
     })
   }
 
   render() {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
-        <ViroAmbientLight color={"#aaaaaa"} intensity={3000} />
+        <ViroAmbientLight color={"#aaaaaa"} intensity={5000} />
         <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0,-1,-.2]}
           position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
-        
-          <ViroNode position={[-18, -18, -36]} dragType="FixedToWorld" onDrag={()=>{}}
-              onClick={(position, source) => this.zombieSwiped(position, source)}>
+          <ViroNode position={[0, 0, 0]} dragType="FixedToWorld" onDrag={()=>{}}
+              onClick={(position, source) => this.zombieClicked(position, source)}>
             <Viro3DObject
-              source={this.state.zombieVrx}
+              source={require('./res/zombie/zombiewalk.vrx')}
               resources={[require('./res/zombie/zombie_diffuse.png'),
                 require('./res/zombie/zombie_normal.png'),
                 require('./res/zombie/zombie_specular.png')]}
-              position={[0, 0, 0]}
+              position={[-18, -18, -36]}
               rotation={[0, 0, 0]}
               animation={
                 {
-                  name: "animateZombie1",
+                  name: "moveForward",
                   run: true,
                   loop:true,
                   onStart: () => this.startAnim()
                 }
               }              
-              scale={[.1, .1, .1]}
+              scale={[.11, .11, .11]}
               type="VRX" 
-              transformBehaviors={["billboardY"]}
-              />         
+              />             
           </ViroNode>
-
+        
         <ViroSound paused={!this.state.zombieSound}
            muted={this.state.zombieSound}
            source={require('./res/zombie/Zombie-sound.mp3')}
@@ -152,7 +145,6 @@ export default class HelloWorldSceneAR extends Component {
            volume={1.0}
            onFinish={this.onFinishSound}
            onError={this.onErrorSound} />        
-
 
       </ViroARScene>
     );
@@ -266,16 +258,26 @@ ViroAnimations.registerAnimations({
     easing: "Linear",
     duration: 1500
   },
-  animateZombie2: {
+  moveForward: {
     properties: {
-      positionX:"-=2",
+      positionX:"+=0",
       positionY:"+=0",
       positionZ:"+=2"
     
     }, 
     easing: "Linear",
-    duration: 1000
-  }
+    duration: 1000    
+  },
+  moveLeft: {
+    properties: {
+      positionX:"+=1",
+      positionY:"+=0",
+      positionZ:"+=0"
+    
+    }, 
+    easing: "Linear",
+    duration: 1000    
+  }  
 });
 
 var styles = StyleSheet.create({
