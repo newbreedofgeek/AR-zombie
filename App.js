@@ -15,12 +15,15 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
+  Image
 } from 'react-native';
 
 import {
   ViroVRSceneNavigator,
   ViroARSceneNavigator,
 } from 'react-viro';
+
+const zombie = require('./js/res/zombie-new.png');
 
 /*
  TODO: Insert your API key below
@@ -79,7 +82,13 @@ export default class ViroSample extends Component {
             Ready to play The Clinic?
           </Text>
 
-          <TouchableHighlight style={localStyles.buttons}
+          <Image
+            style={{width: 280, height: 350, resizeMode: 'contain', marginBottom: 20}}
+            source={zombie}
+          />
+
+          <TouchableHighlight 
+            style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
             underlayColor={'#68a0ff'} >
 
@@ -148,12 +157,13 @@ var localStyles = StyleSheet.create({
     paddingBottom: 20,
     color:'#fff',
     textAlign:'center',
-    fontSize : 25
+    fontSize : 25,
+    fontWeight: 'bold'
   },
   buttonText: {
     color:'#fff',
     textAlign:'center',
-    fontSize : 20
+    fontSize : 20,
   },
   buttons : {
     height: 80,
