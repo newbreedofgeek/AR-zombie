@@ -425,6 +425,7 @@ var styles = StyleSheet.create({
     padding: .2,
     borderRadius: 50,
     paddingRight: 0,
+    opacity: .8
   },
   titleContainerBad: {
     flexDirection: 'column',
@@ -432,6 +433,7 @@ var styles = StyleSheet.create({
     padding: .2,
     borderRadius: 50,
     paddingRight: 0,
+    opacity: .8
   },
   prodTitleText: {
     fontFamily: 'sans-serif-light',
