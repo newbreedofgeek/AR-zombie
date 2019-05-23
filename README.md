@@ -1,7 +1,7 @@
 # AR-zombie
 Sample Augmented Reality Zombie Game build using [ViroReact](https://viromedia.com/viroreact) as a Proof of Concept for a Heackathon.
 
-![AR Zombie Test](https://raw.githubusercontent.com/newbreedofgeek/react-stepzilla/master/giphy.gif)
+![AR Zombie Test](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/giphy.gif)
 
 [Full Video](https://www.youtube.com/watch?v=S-Q_-jOotRY)
 
