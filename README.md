@@ -1,5 +1,5 @@
 # AR-zombie
-Sample Augmented Reality Zombie Game build using [ViroReact](https://viromedia.com/viroreact) as a Proof of Concept for a Heackathon.
+Sample Augmented Reality Zombie Game build using [ViroReact](https://viromedia.com/viroreact) as a Proof of Concept for a Hackathon.
 
 ![AR Zombie Test](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/giphy.gif)
 
@@ -19,4 +19,10 @@ https://docs.viromedia.com/docs/quick-start
 - Needs > iPhone 6S. Tested on Android as well but it was not as good as iOS
 - `npm start` uses ngrok (which is a web based tunnel and can be slow) - we put the phone and development machine on the same WIFI/Hotspot and used the development machine IP in the Viro Media TestBed and its very fast
 
+### AR Positioning?
+The following images will give you an idea of the XYZ position used in AR space.
 
+![Image 1](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/1.jpg)
+![Image 2](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/2.jpg)
+![Image 3](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/3.jpg)
+![Image 4](https://raw.githubusercontent.com/newbreedofgeek/AR-zombie/master/4.jpg)
