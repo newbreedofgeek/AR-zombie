@@ -30,7 +30,7 @@ const zombie = require('./js/res/zombie-new.png');
  TODO: Insert your API key below
  */
 var sharedProps = {
-  apiKey:"6B95156A-28A5-4C6C-8D93-854C0DA93705",
+  apiKey:"YOUR-KEY-HERE",
 }
 
 // Sets the default scene you want for AR and VR
